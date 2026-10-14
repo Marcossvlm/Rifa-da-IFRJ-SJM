@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rifa do IFRJ SMJ</title>
+
+<style>
+:root {
+  --fundo: #0c3115;
+  --painel: #081808;
+  --azul: #119217;
+  --vermelho: #ed424f;
+  --amarelo: #ffcf57;
+  --texto: #f4f7ff;
+  --suave: #aab8ce;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+a { color: inherit; text-decoration: none; }
+
+button { font: inherit; cursor: pointer; }
+
+.container {
+  width: min(1100px, 92%);
+  margin: auto;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(8, 25, 9, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #2c4c28;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 17px 0;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.logo span { color: var(--azul); }
+
+.links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: var(--suave);
+}
+
+.links a:hover { color: white; }
+
+section { padding: 75px 0; }
+
+.hero {
+  min-height: 490px;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(10deg, rgba(15, 187, 32, 0.219),
+    rgba(7, 34, 6, 0.68)),
+    url("fotoprincipal.jpeg") center/cover no-repeat;
+}
+
+.hero-content { max-width: 700px; }
+
+.tag {
+  display: inline-block;
+  background: #143b0a;
+  border: 1px solid #1f9110;
+  color: #91ff82;
+  padding: 8px 13px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: clamp(40px, 7vw, 70px);
+  line-height: 1.05;
+  margin: 20px 0;
+}
+
+h1 span { color: var(--azul); }
+
+p { line-height: 1.7; }
+
+.muted { color: var(--suave); }
+
+.btn {
+  display: inline-block;
+  border: 0;
+  border-radius: 10px;
+  padding: 13px 19px;
+  font-weight: bold;
+  background: var(--azul);
+  color: white;
+}
+
+.btn:hover { filter: brightness(1.15); }
+
+.btn-secondary {
+  background: #0f5318;
+  color: white;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.title {
+  text-align: center;
+  font-size: clamp(28px, 5vw, 40px);
+  margin: 0 0 12px;
+}
+
+.subtitle {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 35px;
+  color: var(--suave);
+}
+
+/* PRÊMIO */
+
+.prize-card {
+  max-width: 650px;
+  margin: auto;
+  background: var(--painel);
+  border: 1px solid #078111;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.prize-card img {
+  width: 100%;
+  height: 330px;
+  object-fit: contain;
+  background: #132e0e;
+}
+
+.prize-info { padding: 25px; }
+
+.prize-info h3 { font-size: 25px; margin-top: 0; }
+
+/* SALA DE CINEMA */
+
+.cinema {
+  background:
+    radial-gradient(ellipse at center top,
+    #194b19 0%, #0d260c 48%, #0a1908 100%);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin: 22px 0;
+  font-size: 13px;
+  color: var(--suave);
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 4px;
+}
+
+.blue { background: var(--azul); }
+.red { background: var(--vermelho); }
+.yellow { background: var(--amarelo); }
+
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.seat {
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  border: 0;
+  border-radius: 9px 9px 5px 5px;
+  background: var(--azul);
+  color: white;
+  font-weight: bold;
+  font-size: clamp(11px, 2vw, 15px);
+  box-shadow: inset 0 -4px 0 #0003;
+  transition: transform .15s, filter .15s;
+}
+
+.seat.available:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.2);
+}
+
+.seat.taken {
+  background: var(--vermelho);
+  cursor: not-allowed;
+  opacity: .9;
+}
+
+.seat.selected {
+  background: var(--amarelo);
+  color: #172033;
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.selection {
+  margin-top: 30px;
+  padding: 22px;
+  border-radius: 14px;
+  background: #193d18;
+  border: 1px solid #316131;
+}
+
+.selection p { overflow-wrap: anywhere; }
+
+.selection-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.note {
+  font-size: 12px;
+  color: var(--suave);
+}
+
+/* PIX E CONTATO */
+
+.buy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  align-items: center;
+}
+
+.buy-card {
+  background: var(--painel);
+  border: 1px solid #2d5326;
+  border-radius: 18px;
+  padding: 25px;
+}
+
+.qrcode {
+  display: block;
+  width: min(260px, 100%);
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: white;
+  padding: 8px;
+  border-radius: 12px;
+  margin: 20px auto;
+}
+
+.contact {
+  text-align: center;
+  background: linear-gradient(135deg, #104a10, #112e16);
+  border: 1px solid #2a6932;
+  border-radius: 20px;
+  padding: 40px 22px;
+}
+
+footer {
+  text-align: center;
+  border-top: 1px solid #264d26;
+  padding: 25px 0;
+  color: var(--suave);
+  font-size: 13px;
+}
+
+@media (max-width: 650px) {
+  nav { align-items: flex-start; flex-direction: column; }
+  .links { gap: 12px; }
+  .buy-grid { grid-template-columns: 1fr; }
+  .numbers { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+  .seat { font-size: 14px; }
+  section { padding: 55px 0; }
+  .prize-card img { height: 250px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="container">
+    <a class="logo" href="#inicio"><img src="logo.jpg" 
+        alt="Descrição da imagem" 
+        style="width: 200px; height: 50px; object-fit: cover; border-radius: 8px;">
+   </a>
+
+    <div class="links">
+      <a href="#inicio">Início</a>
+      <a href="#premio">Prêmio</a>
+      <a href="#numeros">Números</a>
+      <a href="#comprar">Pix</a>
+      <a href="#contato">Contato</a>
+    </div>
+  </nav>
+</header>
+
+<!-- INÍCIO -->
+<section class="hero" id="inicio">
+  <div class="container hero-content">
+    <span class="tag">RIFA CAIXA DE CHOCOLATE • IFRJ SJM</span>
+
+    <h1>Escolha seu número.<br><span>Concorra!</span></h1>
+
+    <p class="muted">
+      Participe da rifa do Grêmio Estudantil e concorra
+      a uma deliciosa caixa de chocolates!
+    </p>
+
+    <div class="hero-buttons">
+      <a class="btn" href="#numeros">Escolher número</a>
+      <a class="btn btn-secondary" href="#premio">Ver o prêmio</a>
+    </div>
+  </div>
+</section>
+
+<!-- ÚNICO PRÊMIO -->
+<section id="premio">
+  <div class="container">
+    <h2 class="title">O prêmio</h2>
+    <p class="subtitle">O prêmio será uma caixa de chocolates com um urso de pelucia dentro.</p>
+
+    <article class="prize-card">
+      <img src="caixadechocolate.png" alt="Caixa de chocolates da rifa">
+
+      <div class="prize-info">
+        <span class="tag">PRÊMIO ÚNICO</span>
+        <h3>Caixa de chocolates</h3>
+        <p class="muted">
+          Caixa de Chocolate com Bombons + um Urso de pelucia
+        </p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- MAPA DOS NÚMEROS -->
+<section class="cinema" id="numeros">
+  <div class="container">
+    <h2 class="title">Escolha seu Número!</h2>
+
+    <p class="subtitle">
+      Use essa tabela para selecionar os números para da rifa, Os vermelhos são números já ocupados.
+    </p>
+
+      <div class="legend">
+        <span><i class="dot blue"></i> Disponível</span>
+        <span><i class="dot red"></i> Ocupado</span>
+        <span><i class="dot yellow"></i> Selecionado</span>
+      </div>
+
+      <div class="numbers" id="numbers">
+        <!-- 100 números criados automaticamente -->
+      </div>
+
+      <div class="selection">
+        <h3>Pagamento via WhatsApp</h3>
+        <p>Números: <strong id="chosen">Nenhum</strong></p>
+        <p>Quantidade: <strong id="quantity">0</strong></p>
+        <p>Valor total: <strong id="total">R$ 0,00</strong></p>
+
+        <div class="selection-buttons">
+          <button class="btn btn-secondary" id="clear">
+            Limpar
+          </button>
+
+          <button class="btn" id="continue">
+            Confirmar pelo WhatsApp
+          </button>
+        </div>
+
+        <p class="note">
+          Selecionar os números sem efetuar o pagamento não será contabilizado para a rifa.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGAMENTO -->
+<section id="comprar">
+  <div class="container">
+    <h2 class="title">COMPRAR VIA PIX</h2>
+    <p class="subtitle">
+      Comprar usando a maneira pix.
+    </p>
+
+    <div class="buy-grid">
+      <div class="buy-card">
+        <h3>Pagamento via Pix</h3>
+        <p class="muted">
+          Escaneie o QR Code ou use a chave Pix
+          informada abaixo
+        </p>
+
+        <img class="qrcode" src="pix.png"
+             alt="QR Code Pix da rifa">
+
+        <p>Chave Pix: <strong id="pixKey">SUA-CHAVE-PIX</strong></p>
+        <p class="note">
+          Confira se o destinatário sejá Cauã Marques antes de confirmar qualquer pagamento.
+        </p>
+      </div>
+
+      <div class="buy-card">
+        <h3>📋 Passo a passo</h3>
+        <p>1. Escolha seus números verdes.</p>
+        <p>2. Envie sua seleção pelo WhatsApp usando a mensagem pre definidas.</p>
+        <p>3. Aguarde a confirmação da disponibilidade dos números.</p>
+        <p>4. Faça o Pagamento PIX e envie o comprovante.</p>
+        <p class="muted">Valor por número:</p>
+        <h2 id="price">R$ 5,00</h2>
+        <a href="#numeros" class="btn">Escolher números</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="container">
+    <div class="contact">
+      <h2>Tem duvidas?</h2>
+      <p class="muted">
+        Dúvidas sobre os números, o prêmio ou o pagamento?
+        Entre em contato com a organização.
+      </p>
+      <a class="btn" id="contactButton" href="#">
+        Conversar pelo WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>IFRJ - São João de Meriti</p>
+    <p>Site criado e monitorado pelo Marcos Vinicius do setor de Marketing do Grêmio Estudantil.</p>
+  </div>
+</footer>
+
+<script>
+/* ==========================================
+   CONFIGURAÇÃO: EDITE ESTA PARTE
+========================================== */
+
+// PREÇO DE CADA NÚMERO
+const PRECO = 5.00;
+
+// NÚMEROS OCUPADOS (de 0 até 99)
+// Exemplo: [0, 1, 8, 15, 23]
+const OCUPADOS = [];
+
+// WHATSAPP OFICIAL: DDI + DDD + NÚMERO
+const WHATSAPP = "5521976623198";
+
+// CHAVE PIX EXIBIDA NA PÁGINA
+const CHAVE_PIX = "00020126740014BR.GOV.BCB.PIX0114+55219766231980234fale seu número no grupo do zapzap52040000530398654045.005802BR5925Caua Marques Granico Sant6009SAO PAULO621405101uumYhgFwt63041969";
+
+// MENSAGEM INICIAL
+const MENSAGEM =
+  "Estou com Duvidas em relação a rifa do IFRJ São João de Meriti";
+
+
+/* ==========================================
+   SISTEMA AUTOMÁTICO DOS NÚMEROS
+========================================== */
+
+const grade = document.getElementById("numbers");
+const escolhidos = new Set();
+
+const formatar = n => String(n).padStart(2, "0");
+
+function dinheiro(valor) {
+  return valor.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
+}
+
+function atualizar() {
+  const lista = [...escolhidos].sort((a, b) => a - b);
+
+  document.getElementById("chosen").textContent =
+    lista.length ? lista.map(formatar).join(", ") : "Nenhum";
+
+  document.getElementById("quantity").textContent = lista.length;
+  document.getElementById("total").textContent =
+    dinheiro(lista.length * PRECO);
+
+  document.querySelectorAll(".seat.available").forEach(botao => {
+    const n = Number(botao.dataset.number);
+    botao.classList.toggle("selected", escolhidos.has(n));
+    botao.setAttribute("aria-pressed", String(escolhidos.has(n)));
+  });
+}
+
+for (let n = 0; n < 100; n++) {
+  const botao = document.createElement("button");
+
+  botao.type = "button";
+  botao.className = "seat";
+  botao.textContent = formatar(n);
+  botao.dataset.number = n;
+
+  if (OCUPADOS.includes(n)) {
+    botao.classList.add("taken");
+    botao.disabled = true;
+    botao.title = "Ocupado";
+    botao.setAttribute("aria-label", `Número ${formatar(n)}, ocupado`);
+  } else {
+    botao.classList.add("available");
+    botao.title = "Disponível — clique para selecionar";
+    botao.setAttribute("aria-label", `Número ${formatar(n)}, disponível`);
+
+    botao.addEventListener("click", () => {
+      if (escolhidos.has(n)) {
+        escolhidos.delete(n);
+      } else {
+        escolhidos.add(n);
+      }
+      atualizar();
+    });
+  }
+
+  grade.appendChild(botao);
+}
+
+function abrirWhatsApp(mensagem) {
+  const numero = WHATSAPP.replace(/\D/g, "");
+
+  if (!numero || numero === "5521999999999") {
+    alert("Configure o WhatsApp na área de configuração do código.");
+    return;
+  }
+
+  window.open(
+    "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem),
+    "_blank",
+    "noopener,noreferrer"
+  );
+}
+
+document.getElementById("clear").addEventListener("click", () => {
+  escolhidos.clear();
+  atualizar();
+});
+
+document.getElementById("continue").addEventListener("click", () => {
+  if (escolhidos.size === 0) {
+    alert("Escolha pelo menos um número disponível.");
+    return;
+  }
+
+  const lista = [...escolhidos].sort((a, b) => a - b);
+
+  abrirWhatsApp(
+    "Olá! Tenho interesse na Rifa do IFRJ São João de Meriti.\n" +
+    " - " +
+    "Estava interesado no(s) número(s): " + lista.map(formatar).join(", ") + "\n" +
+    " - " +
+    "Quantidade de números: " + lista.length + "\n" +
+    " - " +
+    "Valor estimado: " + dinheiro(lista.length * PRECO) + "\n"
+  );
+});
+
+document.getElementById("contactButton").addEventListener("click", e => {
+  e.preventDefault();
+  abrirWhatsApp(MENSAGEM);
+});
+
+document.getElementById("price").textContent = dinheiro(PRECO);
+document.getElementById("pixKey").textContent = CHAVE_PIX;
+
+atualizar();
+</script>
+
+</body>
+</html>
