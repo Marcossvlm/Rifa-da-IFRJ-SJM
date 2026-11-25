@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -32,7 +33,6 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
-
 button { font: inherit; cursor: pointer; }
 
 .container {
@@ -64,6 +64,13 @@ nav {
 }
 
 .logo span { color: var(--azul); }
+
+.logo img {
+  width: 200px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
 
 .links {
   display: flex;
@@ -107,9 +114,7 @@ h1 {
 }
 
 h1 span { color: var(--azul); }
-
 p { line-height: 1.7; }
-
 .muted { color: var(--suave); }
 
 .btn {
@@ -168,8 +173,64 @@ p { line-height: 1.7; }
 }
 
 .prize-info { padding: 25px; }
-
 .prize-info h3 { font-size: 25px; margin-top: 0; }
+
+/* ARRECADAÇÃO */
+
+.cause {
+  background:
+    linear-gradient(rgba(5, 25, 7, 0.78), rgba(5, 25, 7, 0.88)),
+    url("fundo.png") center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+.cause-card {
+  max-width: 750px;
+  margin: auto;
+  padding: 35px;
+  border-radius: 20px;
+  background: rgba(8, 24, 8, 0.85);
+  border: 1px solid #287c2d;
+  backdrop-filter: blur(5px);
+}
+
+.cause-card h3 {
+  font-size: 25px;
+  margin-top: 0;
+}
+
+.goal-info {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 25px;
+  margin-bottom: 12px;
+}
+
+.progress-background {
+  width: 100%;
+  height: 22px;
+  background: #263526;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid #456b42;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #119217, #70ed62);
+  border-radius: 30px;
+  transition: width .7s ease;
+}
+
+.goal-percentage {
+  text-align: center;
+  font-weight: bold;
+  color: #91ff82;
+  margin-top: 12px;
+}
 
 /* SALA DE CINEMA */
 
@@ -308,13 +369,29 @@ footer {
 }
 
 @media (max-width: 650px) {
-  nav { align-items: flex-start; flex-direction: column; }
+  nav {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .links { gap: 12px; }
+
   .buy-grid { grid-template-columns: 1fr; }
-  .numbers { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+
+  .numbers {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+  }
+
   .seat { font-size: 14px; }
+
   section { padding: 55px 0; }
+
   .prize-card img { height: 250px; }
+
+  .cause { background-attachment: scroll; }
+
+  .cause-card { padding: 23px; }
 }
 </style>
 </head>
@@ -323,14 +400,14 @@ footer {
 
 <header>
   <nav class="container">
-    <a class="logo" href="#inicio"><img src="logo.jpg" 
-        alt="Descrição da imagem" 
-        style="width: 200px; height: 50px; object-fit: cover; border-radius: 8px;">
-   </a>
+    <a class="logo" href="#inicio">
+      <img src="logo.jpg" alt="Logo da rifa">
+    </a>
 
     <div class="links">
       <a href="#inicio">Início</a>
       <a href="#premio">Prêmio</a>
+      <a href="#causa">Arrecadação</a>
       <a href="#numeros">Números</a>
       <a href="#comprar">Pix</a>
       <a href="#contato">Contato</a>
@@ -339,6 +416,7 @@ footer {
 </header>
 
 <!-- INÍCIO -->
+
 <section class="hero" id="inicio">
   <div class="container hero-content">
     <span class="tag">RIFA CAIXA DE CHOCOLATE • IFRJ SJM</span>
@@ -357,11 +435,15 @@ footer {
   </div>
 </section>
 
-<!-- ÚNICO PRÊMIO -->
+<!-- PRÊMIO -->
+
 <section id="premio">
   <div class="container">
     <h2 class="title">O prêmio</h2>
-    <p class="subtitle">O prêmio será uma caixa de chocolates com um urso de pelucia dentro.</p>
+
+    <p class="subtitle">
+      O prêmio será uma caixa de chocolates com um urso de pelúcia dentro.
+    </p>
 
     <article class="prize-card">
       <img src="caixadechocolate.png" alt="Caixa de chocolates da rifa">
@@ -370,139 +452,268 @@ footer {
         <span class="tag">PRÊMIO ÚNICO</span>
         <h3>Caixa de chocolates</h3>
         <p class="muted">
-          Caixa de Chocolate com Bombons + um Urso de pelucia
+          Caixa de chocolate com bombons + um urso de pelúcia.
         </p>
       </div>
     </article>
   </div>
 </section>
 
-<!-- MAPA DOS NÚMEROS -->
-<section class="cinema" id="numeros">
+<!-- POR QUE ESTAMOS ARRECADANDO -->
+
+<section class="cause" id="causa">
   <div class="container">
-    <h2 class="title">Escolha seu Número!</h2>
+
+    <h2 class="title">Por que estamos arrecadando?</h2>
 
     <p class="subtitle">
-      Use essa tabela para selecionar os números para da rifa, Os vermelhos são números já ocupados.
+      Sua participação ajuda a fortalecer o esporte no IFRJ!
     </p>
 
-      <div class="legend">
-        <span><i class="dot blue"></i> Disponível</span>
-        <span><i class="dot red"></i> Ocupado</span>
-        <span><i class="dot yellow"></i> Selecionado</span>
+    <div class="cause-card">
+
+      <h3>🏆 Investindo no esporte!</h3>
+
+      <p class="muted">
+        Estamos realizando esta rifa com o objetivo de arrecadar
+        dinheiro para comprar materiais esportivos para o IFRJ
+        São João de Meriti.
+      </p>
+
+      <p class="muted">
+        Com a sua contribuição, poderemos investir em novos
+        materiais e incentivar a prática de esportes,
+        proporcionando mais oportunidades de atividades
+        esportivas para os estudantes.
+      </p>
+
+      <p>
+        <strong>Cada participação faz a diferença. Obrigado por apoiar!</strong>
+      </p>
+
+      <div class="goal-info">
+        <strong>Meta da arrecadação</strong>
+        <strong id="goal">R$ 200,00</strong>
       </div>
 
-      <div class="numbers" id="numbers">
-        <!-- 100 números criados automaticamente -->
+      <div class="goal-info">
+        <span>Valor arrecadado:</span>
+        <strong id="raised">R$ 0,00</strong>
       </div>
 
-      <div class="selection">
-        <h3>Pagamento via WhatsApp</h3>
-        <p>Números: <strong id="chosen">Nenhum</strong></p>
-        <p>Quantidade: <strong id="quantity">0</strong></p>
-        <p>Valor total: <strong id="total">R$ 0,00</strong></p>
-
-        <div class="selection-buttons">
-          <button class="btn btn-secondary" id="clear">
-            Limpar
-          </button>
-
-          <button class="btn" id="continue">
-            Confirmar pelo WhatsApp
-          </button>
-        </div>
-
-        <p class="note">
-          Selecionar os números sem efetuar o pagamento não será contabilizado para a rifa.
-        </p>
+      <div class="progress-background">
+        <div class="progress-fill" id="progress"></div>
       </div>
+
+      <p class="goal-percentage" id="percentage">
+        0% da meta alcançada
+      </p>
+
+      <p class="note" style="text-align:center">
+        O valor é calculado com base nos números ocupados.
+      </p>
+
     </div>
   </div>
 </section>
 
+<!-- MAPA DOS NÚMEROS -->
+
+<section class="cinema" id="numeros">
+  <div class="container">
+
+    <h2 class="title">Escolha seu Número!</h2>
+
+    <p class="subtitle">
+      Use essa tabela para selecionar os números da rifa.
+      Os vermelhos são números já ocupados.
+    </p>
+
+    <div class="legend">
+      <span><i class="dot blue"></i> Disponível</span>
+      <span><i class="dot red"></i> Ocupado</span>
+      <span><i class="dot yellow"></i> Selecionado</span>
+    </div>
+
+    <div class="numbers" id="numbers">
+      <!-- 100 números criados automaticamente -->
+    </div>
+
+    <div class="selection">
+      <h3>Pagamento via WhatsApp</h3>
+
+      <p>Números: <strong id="chosen">Nenhum</strong></p>
+      <p>Quantidade: <strong id="quantity">0</strong></p>
+      <p>Valor total: <strong id="total">R$ 0,00</strong></p>
+
+      <div class="selection-buttons">
+        <button class="btn btn-secondary" id="clear">
+          Limpar
+        </button>
+
+        <button class="btn" id="continue">
+          Confirmar pelo WhatsApp
+        </button>
+      </div>
+
+      <p class="note">
+        Selecionar os números sem efetuar o pagamento não será
+        contabilizado para a rifa.
+      </p>
+    </div>
+
+  </div>
+</section>
+
 <!-- PAGAMENTO -->
+
 <section id="comprar">
   <div class="container">
+
     <h2 class="title">COMPRAR VIA PIX</h2>
+
     <p class="subtitle">
-      Comprar usando a maneira pix.
+      Compre seu número utilizando o Pix.
     </p>
 
     <div class="buy-grid">
+
       <div class="buy-card">
         <h3>Pagamento via Pix</h3>
+
         <p class="muted">
-          Escaneie o QR Code ou use a chave Pix
-          informada abaixo
+          Escaneie o QR Code ou use a chave Pix informada abaixo.
         </p>
 
-        <img class="qrcode" src="pix.png"
-             alt="QR Code Pix da rifa">
+        <img class="qrcode" src="pix.png" alt="QR Code Pix da rifa">
 
         <p>Chave Pix: <strong id="pixKey">SUA-CHAVE-PIX</strong></p>
+
         <p class="note">
-          Confira se o destinatário sejá Cauã Marques antes de confirmar qualquer pagamento.
+          Confira se o destinatário seja Cauã Marques antes
+          de confirmar qualquer pagamento.
         </p>
       </div>
 
       <div class="buy-card">
         <h3>📋 Passo a passo</h3>
+
         <p>1. Escolha seus números verdes.</p>
-        <p>2. Envie sua seleção pelo WhatsApp usando a mensagem pre definidas.</p>
+        <p>2. Envie sua seleção pelo WhatsApp usando a mensagem predefinida.</p>
         <p>3. Aguarde a confirmação da disponibilidade dos números.</p>
-        <p>4. Faça o Pagamento PIX e envie o comprovante.</p>
+        <p>4. Faça o pagamento PIX e envie o comprovante.</p>
+
         <p class="muted">Valor por número:</p>
         <h2 id="price">R$ 5,00</h2>
+
         <a href="#numeros" class="btn">Escolher números</a>
       </div>
+
     </div>
   </div>
 </section>
 
 <!-- CONTATO -->
+
 <section id="contato">
   <div class="container">
+
     <div class="contact">
-      <h2>Tem duvidas?</h2>
+      <h2>Tem dúvidas?</h2>
+
       <p class="muted">
         Dúvidas sobre os números, o prêmio ou o pagamento?
         Entre em contato com a organização.
       </p>
+
       <a class="btn" id="contactButton" href="#">
         Conversar pelo WhatsApp
       </a>
     </div>
+
   </div>
 </section>
 
 <footer>
   <div class="container">
     <p>IFRJ - São João de Meriti</p>
-    <p>Site criado e monitorado pelo Marcos Vinicius do setor de Marketing do Grêmio Estudantil.</p>
+
+    <p>
+      Site criado e monitorado pelo Marcos Vinicius
+      do setor de Marketing do Grêmio Estudantil.
+    </p>
   </div>
 </footer>
 
 <script>
+
 /* ==========================================
-   CONFIGURAÇÃO: EDITE ESTA PARTE
+   CONFIGURAÇÕES
 ========================================== */
 
 // PREÇO DE CADA NÚMERO
 const PRECO = 5.00;
 
+// META DA ARRECADAÇÃO
+const META = 200.00;
+
 // NÚMEROS OCUPADOS (de 0 até 99)
-// Exemplo: [0, 1, 8, 15, 23]
 const OCUPADOS = [19, 57, 11, 22, 33, 44];
 
 // WHATSAPP OFICIAL: DDI + DDD + NÚMERO
 const WHATSAPP = "5521976623198";
 
-// CHAVE PIX EXIBIDA NA PÁGINA
+// CHAVE PIX
 const CHAVE_PIX = "00020126740014BR.GOV.BCB.PIX0114+55219766231980234fale seu número no grupo do zapzap52040000530398654045.005802BR5925Caua Marques Granico Sant6009SAO PAULO621405101uumYhgFwt63041969";
 
 // MENSAGEM INICIAL
 const MENSAGEM =
-  "Estou com Duvidas em relação a rifa do IFRJ São João de Meriti";
+  "Estou com dúvidas em relação à rifa do IFRJ São João de Meriti";
+
+
+/* ==========================================
+   SISTEMA DE ARRECADAÇÃO AUTOMÁTICA
+========================================== */
+
+function dinheiro(valor) {
+  return valor.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
+}
+
+function atualizarMeta() {
+
+  // Conta apenas números ocupados válidos e sem duplicação
+  const quantidadeOcupada = new Set(
+    OCUPADOS.filter(n =>
+      Number.isInteger(n) && n >= 0 && n <= 99
+    )
+  ).size;
+
+  // Cada número ocupado vale R$ 5,00
+  const arrecadado = quantidadeOcupada * PRECO;
+
+  // Calcula a porcentagem da meta
+  const porcentagem = Math.min(
+    (arrecadado / META) * 100,
+    100
+  );
+
+  // Atualiza os valores na página
+  document.getElementById("goal").textContent =
+    dinheiro(META);
+
+  document.getElementById("raised").textContent =
+    dinheiro(arrecadado);
+
+  document.getElementById("progress").style.width =
+    porcentagem + "%";
+
+  document.getElementById("percentage").textContent =
+    porcentagem.toFixed(1).replace(".", ",") +
+    "% da meta alcançada";
+}
 
 
 /* ==========================================
@@ -514,31 +725,45 @@ const escolhidos = new Set();
 
 const formatar = n => String(n).padStart(2, "0");
 
-function dinheiro(valor) {
-  return valor.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  });
-}
-
 function atualizar() {
+
   const lista = [...escolhidos].sort((a, b) => a - b);
 
   document.getElementById("chosen").textContent =
-    lista.length ? lista.map(formatar).join(", ") : "Nenhum";
+    lista.length
+      ? lista.map(formatar).join(", ")
+      : "Nenhum";
 
-  document.getElementById("quantity").textContent = lista.length;
+  document.getElementById("quantity").textContent =
+    lista.length;
+
   document.getElementById("total").textContent =
     dinheiro(lista.length * PRECO);
 
   document.querySelectorAll(".seat.available").forEach(botao => {
+
     const n = Number(botao.dataset.number);
-    botao.classList.toggle("selected", escolhidos.has(n));
-    botao.setAttribute("aria-pressed", String(escolhidos.has(n)));
+
+    botao.classList.toggle(
+      "selected",
+      escolhidos.has(n)
+    );
+
+    botao.setAttribute(
+      "aria-pressed",
+      String(escolhidos.has(n))
+    );
+
   });
 }
 
+
+/* ==========================================
+   CRIAÇÃO DOS 100 NÚMEROS
+========================================== */
+
 for (let n = 0; n < 100; n++) {
+
   const botao = document.createElement("button");
 
   botao.type = "button";
@@ -547,49 +772,87 @@ for (let n = 0; n < 100; n++) {
   botao.dataset.number = n;
 
   if (OCUPADOS.includes(n)) {
+
     botao.classList.add("taken");
     botao.disabled = true;
     botao.title = "Ocupado";
-    botao.setAttribute("aria-label", `Número ${formatar(n)}, ocupado`);
+
+    botao.setAttribute(
+      "aria-label",
+      `Número ${formatar(n)}, ocupado`
+    );
+
   } else {
+
     botao.classList.add("available");
+
     botao.title = "Disponível — clique para selecionar";
-    botao.setAttribute("aria-label", `Número ${formatar(n)}, disponível`);
+
+    botao.setAttribute(
+      "aria-label",
+      `Número ${formatar(n)}, disponível`
+    );
 
     botao.addEventListener("click", () => {
+
       if (escolhidos.has(n)) {
         escolhidos.delete(n);
       } else {
         escolhidos.add(n);
       }
+
       atualizar();
+
     });
+
   }
 
   grade.appendChild(botao);
+
 }
 
+
+/* ==========================================
+   WHATSAPP
+========================================== */
+
 function abrirWhatsApp(mensagem) {
+
   const numero = WHATSAPP.replace(/\D/g, "");
 
-  if (!numero || numero === "5521999999999") {
+  if (!numero) {
     alert("Configure o WhatsApp na área de configuração do código.");
     return;
   }
 
   window.open(
-    "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem),
+    "https://wa.me/" + numero +
+    "?text=" + encodeURIComponent(mensagem),
     "_blank",
     "noopener,noreferrer"
   );
+
 }
 
+
+/* ==========================================
+   BOTÃO LIMPAR
+========================================== */
+
 document.getElementById("clear").addEventListener("click", () => {
+
   escolhidos.clear();
   atualizar();
+
 });
 
+
+/* ==========================================
+   CONFIRMAR NÚMEROS PELO WHATSAPP
+========================================== */
+
 document.getElementById("continue").addEventListener("click", () => {
+
   if (escolhidos.size === 0) {
     alert("Escolha pelo menos um número disponível.");
     return;
@@ -598,25 +861,46 @@ document.getElementById("continue").addEventListener("click", () => {
   const lista = [...escolhidos].sort((a, b) => a - b);
 
   abrirWhatsApp(
-    "Olá! Tenho interesse na Rifa do IFRJ São João de Meriti.\n" +
-    " - " +
-    "Estava interesado no(s) número(s): " + lista.map(formatar).join(", ") + "\n" +
-    " - " +
-    "Quantidade de números: " + lista.length + "\n" +
-    " - " +
-    "Valor estimado: " + dinheiro(lista.length * PRECO) + "\n"
+    "Olá! Tenho interesse na Rifa do IFRJ São João de Meriti.\n\n" +
+
+    "Números escolhidos: " +
+    lista.map(formatar).join(", ") + "\n" +
+
+    "Quantidade de números: " +
+    lista.length + "\n" +
+
+    "Valor estimado: " +
+    dinheiro(lista.length * PRECO) + "\n"
   );
+
 });
+
+
+/* ==========================================
+   BOTÃO DE CONTATO
+========================================== */
 
 document.getElementById("contactButton").addEventListener("click", e => {
+
   e.preventDefault();
   abrirWhatsApp(MENSAGEM);
+
 });
 
-document.getElementById("price").textContent = dinheiro(PRECO);
-document.getElementById("pixKey").textContent = CHAVE_PIX;
+
+/* ==========================================
+   INICIALIZAÇÃO
+========================================== */
+
+document.getElementById("price").textContent =
+  dinheiro(PRECO);
+
+document.getElementById("pixKey").textContent =
+  CHAVE_PIX;
 
 atualizar();
+atualizarMeta();
+
 </script>
 
 </body>
